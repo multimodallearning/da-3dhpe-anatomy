@@ -102,9 +102,19 @@ class SLPDataset(torch.utils.data.Dataset):
 
         self.is_train = True if phase == 'train' else False
 
-        self.num_points = cfg.INPUT.NUM_POINTS
-        self.rotation = cfg.INPUT.ROT_DEGREE
-        self.translation = cfg.INPUT.TRANSLATION
+        if self.is_train:
+            if domain == 'source':
+                self.num_points = cfg.INPUT.NUM_POINTS
+                self.rotation = cfg.INPUT.ROT_DEGREE
+                self.translation = cfg.INPUT.TRANSLATION
+            else:
+                self.num_points = cfg.INPUT.NUM_POINTS_TARGET
+                self.rotation = cfg.INPUT.ROT_DEGREE_TARGET
+                self.translation = cfg.INPUT.TRANSLATION_TARGET
+        else:
+            self.num_points = cfg.INPUT.NUM_POINTS_TEST
+            self.rotation = 0.
+            self.translation = 0.
 
     def __getitem__(self, idx):
         # create paths of input pcd and gt joints

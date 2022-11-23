@@ -1,5 +1,5 @@
 # da-3dhpe-anatomy
-Source code for our MIDL2022 paper [Domain adaptive 3d human pose estimation through anatomical constraints](https://openreview.net/forum?id=iCTU7EQipC) [[pdf](https://openreview.net/pdf?id=iCTU7EQipC)].
+Source code for our MIDL2022 paper [Domain adaptive 3d human pose estimation through anatomical constraints](https://openreview.net/forum?id=iCTU7EQipC) [[pdf](https://openreview.net/pdf?id=iCTU7EQipC)]  and its ongoing journal extension.
 
 ## Dependencies
 Please first install the following dependencies
@@ -25,12 +25,13 @@ Furhtermore, please clone the following repositories to the same directory as ou
 1. In `/configs/defaults.py`, modify `_C.BASE_DIRECTORY` in line 5 to the root directory where you intend to save the results.
 2. In the config files `/configs/CONFIG_TO_SPECIFY.yaml`, you can optionally modify `EXPERIMENT_NAME` in line 1. Models and log files will finally be written to `os.path.join(cfg.BASE_DIRECTORY, cfg.EXPERIMENT_NAME)`.
 3. Navigate to the `main` directory.
-4. Execute `python train.py --gpu GPU --config-file ../configs/config_pretrain.yaml` for pre-training and subsequently execute `python train.py --gpu GPU --config-file ../configs/config_ours.yaml`. After each epoch, we save the model weights and a log file to the specified directory.
-5. To train the source-only or target-only model, execute `python train.py --gpu GPU --config-file ../configs/config_baseline.yaml` or `python train.py --gpu GPU --config-file ../configs/config_oracle.yaml`. Again, we save the model weights and a log file to the specified directory after each epoch.
+4. To train the source-only or target-only model, execute `python train.py --gpu GPU --config-file ../configs/config_baseline.yaml` or `python train.py --gpu GPU --config-file ../configs/config_oracle.yaml`. After each epoch, we save the model weights and a log file to the specified directory after each epoch.
+5. To train our model as in the MIDL paper (UDA, anatomy-constrained optimization only), execute `python train.py --gpu GPU --config-file ../configs/config_pretrain.yaml` for pre-training and subsequently execute `python train.py --gpu GPU --config-file ../configs/config_ours.yaml`. Again, we save the model weights and a log file to the specified directory.
+6. To train our model as in the journal extension (anatomy-constrained optimization & anatomy-guided PL filtering with the Mean Teacher), execute `python train_uda.py --gpu GPU --config-file ../configs/config_anat-mt_uda.yaml` for training in the UDA setting. Training in the SFDA setting requires previous training of the source-only model for initialization (see 4.). Alterantively, we provide the [weights](https://drive.google.com/file/d/1-p4jP7qJ42P0WdXS9BCv2sgwIbZoSbg4/view?usp=sharing) of our trained source-only model. Given the pretrained model, set `WEIGHT`in line 4 of `/configs/config_anat-mt_sfda.yaml` to the path of the weights and subsequently execute `python train_sfda.py --gpu GPU --config-file ../configs/config_anat-mt_sfda.yaml`.
 
 ## Testing
 * If you trained a model yourself following the instructions above, you can test the model by executing `python test.py --config-file ../configs/CONFIG_USED_FOR_TRAINING.yaml --gpu GPU --val-split VAL_SPLIT --cover-condition COVER_COND --position POSITION`. `VAL_SPLIT`should be in {val, test}, `COVER_COND` should be in {cover1, cover2, cover12}, and `POSITION` should be in {supine, lateral, all, left, right}. The output is the MPJPE in mm, averaged over all joints as well as averaged over different groups of joints, for specified cover condition and patient position.
-* Otherwise, we provide our [pre-trained model](https://drive.google.com/file/d/1n8yJEzFaQ_Eu21VJVPu_xA5drqEBHgqN/view?usp=sharing). Download the model and use it for inference by executing `python test.py --config-file ../configs/config_ours.yaml --gpu GPU --val-split VAL_SPLIT --cover-condition COVER_COND --position POSITION --model-path /PATH/TO/MODEL`. This model achieves the same results as reported in our paper.
+* Otherwise, we provide our [pre-trained models](https://drive.google.com/drive/folders/1cQ6owCgX3VG4lrt8CCzspLHEFW0321vi). Download the models and use it for inference by executing `python test.py --config-file ../configs/CONFIG_OF_CHOSEN_MODEL.yaml --gpu GPU --val-split VAL_SPLIT --cover-condition COVER_COND --position POSITION --model-path /PATH/TO/MODEL`. The models achieve the same results as reported in our paper.
 
 ## Acknowledgements
 * Code for data pre-processing has been adapted from https://github.com/pgrady3/SLP-3Dfits
