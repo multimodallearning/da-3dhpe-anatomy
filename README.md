@@ -1,5 +1,5 @@
 # da-3dhpe-anatomy
-Source code for our MIDL2022 paper [Domain adaptive 3d human pose estimation through anatomical constraints](https://openreview.net/forum?id=iCTU7EQipC) [[pdf](https://openreview.net/pdf?id=iCTU7EQipC)]  and its ongoing journal extension.
+Source code for our MIDL2022 paper [Domain adaptive 3d human pose estimation through anatomical constraints](https://openreview.net/forum?id=iCTU7EQipC) [[pdf](https://openreview.net/pdf?id=iCTU7EQipC)]  and its ongoing journal extension [Anatomy-guided domain adaptation for 3D in-bed human pose estimation](https://arxiv.org/abs/2211.12193)[[pdf](https://arxiv.org/pdf/2211.12193.pdf)].
 
 ## Dependencies
 Please first install the following dependencies
