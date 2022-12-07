@@ -33,6 +33,24 @@ Furhtermore, please clone the following repositories to the same directory as ou
 * If you trained a model yourself following the instructions above, you can test the model by executing `python test.py --config-file ../configs/CONFIG_USED_FOR_TRAINING.yaml --gpu GPU --val-split VAL_SPLIT --cover-condition COVER_COND --position POSITION`. `VAL_SPLIT`should be in {val, test}, `COVER_COND` should be in {cover1, cover2, cover12}, and `POSITION` should be in {supine, lateral, all, left, right}. The output is the MPJPE in mm, averaged over all joints as well as averaged over different groups of joints, for specified cover condition and patient position.
 * Otherwise, we provide our [pre-trained models](https://drive.google.com/drive/folders/1cQ6owCgX3VG4lrt8CCzspLHEFW0321vi). Download the models and use it for inference by executing `python test.py --config-file ../configs/CONFIG_OF_CHOSEN_MODEL.yaml --gpu GPU --val-split VAL_SPLIT --cover-condition COVER_COND --position POSITION --model-path /PATH/TO/MODEL`. The models achieve the same results as reported in our paper.
 
+## Citation
+If you find our code useful for your work, please cite the following papers
+```latex
+@inproceedings{bigalke2021domain,
+  title={Domain adaptation through anatomical constraints for 3d human pose estimation under the cover},
+  author={Bigalke, Alexander and Hansen, Lasse and Diesel, Jasper and Heinrich, Mattias P},
+  booktitle={Medical Imaging with Deep Learning},
+  year={2021}
+}
+
+@article{bigalke2022anatomy,
+  title={Anatomy-guided domain adaptation for 3D in-bed human pose estimation},
+  author={Bigalke, Alexander and Hansen, Lasse and Diesel, Jasper and Hennigs, Carlotta and Rostalski, Philipp and Heinrich, Mattias P},
+  journal={arXiv preprint arXiv:2211.12193},
+  year={2022}
+}
+```
+
 ## Acknowledgements
 * Code for data pre-processing has been adapted from https://github.com/pgrady3/SLP-3Dfits
 * DGCNN implementation has been adapted from https://github.com/AnTao97/dgcnn.pytorch
